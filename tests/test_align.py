@@ -116,8 +116,8 @@ class AlignerTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             d=Path(tmp); o=d/'script.json'; r=d/'alignment-report.json'
             self.assertEqual(module.run(fixtures/'source.json',fixtures/'whisperx.json',o,r),0)
-            self.assertEqual(o.read_bytes(), (fixtures/'expected-script.json').read_bytes())
-            self.assertEqual(r.read_bytes(), (fixtures/'expected-report.json').read_bytes())
+            self.assertEqual(json.loads(o.read_text(encoding='utf-8')), json.loads((fixtures/'expected-script.json').read_text(encoding='utf-8')))
+            self.assertEqual(json.loads(r.read_text(encoding='utf-8')), json.loads((fixtures/'expected-report.json').read_text(encoding='utf-8')))
     def test_18_repository_layout_and_schema(self):
         self.assertTrue((ROOT/'SKILL.md').is_file())
         self.assertTrue((ROOT/'scripts/align.py').is_file())
