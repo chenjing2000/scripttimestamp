@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "summary": {
+    "paragraphs": 2,
+    "sentences": 3,
+    "source_words": 16,
+    "whisperx_words": 16,
+    "matched_source_words": 16,
+    "timed_source_words": 16,
+    "untimed_source_words": 0,
+    "unaligned_source_words": 0,
+    "timed_units": 14,
+    "unmatched_whisperx_words": 1,
+    "match_units_by_category": {
+      "contraction": 2,
+      "exact": 10,
+      "group_exact": 1,
+      "spelling_variant": 1
+    }
+  },
+  "ignored_audio": [
+    {
+      "position": "before_source",
+      "count": 1,
+      "first_start": 1.0,
+      "last_end": 1.5,
+      "sample": [
+        "Intro"
+      ]
+    }
+  ],
+  "issues": []
+}

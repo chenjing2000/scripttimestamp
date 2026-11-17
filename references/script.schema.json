@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Script JSON v1.0",
+  "description": "Original paragraph and sentence text with ordered time-aligned display units. Times are seconds from the original audio start.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "title",
+    "paragraphs"
+  ],
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "paragraphs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "$ref": "#/$defs/sentence"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "sentence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "text",
+        "timed_units"
+      ],
+      "properties": {
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "timed_units": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/timed_unit"
+          }
+        }
+      }
+    },
+    "timed_unit": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "oneOf": [
+        {
+          "prefixItems": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "number",
+              "minimum": 0
+            }
+          ],
+          "items": false
+        },
+        {
+          "prefixItems": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "items": false
+        }
+      ]
+    }
+  }
+}

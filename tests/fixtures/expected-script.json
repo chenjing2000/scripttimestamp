@@ -1,0 +1,94 @@
+{
+  "title": "",
+  "paragraphs": [
+    [
+      {
+        "text": "BIOLOGY IS HANDED.",
+        "timed_units": [
+          [
+            "BIOLOGY",
+            10.0,
+            10.5
+          ],
+          [
+            "IS",
+            10.6,
+            10.75
+          ],
+          [
+            "HANDED",
+            10.8,
+            11.3
+          ]
+        ]
+      },
+      {
+        "text": "We do not know why it is so.",
+        "timed_units": [
+          [
+            "We",
+            12.0,
+            12.2
+          ],
+          [
+            "do not",
+            12.3,
+            12.6
+          ],
+          [
+            "know",
+            12.7,
+            12.9
+          ],
+          [
+            "why",
+            13.0,
+            13.2
+          ],
+          [
+            "it is",
+            13.3,
+            13.6
+          ],
+          [
+            "so",
+            13.7,
+            14.0
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "text": "A mirror-symmetrical form is synthesising.",
+        "timed_units": [
+          [
+            "A",
+            20.0,
+            20.1
+          ],
+          [
+            "mirror-symmetrical",
+            20.2,
+            21.0
+          ],
+          [
+            "form",
+            21.1,
+            21.4
+          ],
+          [
+            "is",
+            21.5,
+            21.7
+          ],
+          [
+            "synthesising",
+            21.8,
+            22.3
+          ]
+        ]
+      }
+    ]
+  ]
+}
