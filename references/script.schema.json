@@ -1,14 +1,19 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Script JSON v1.0",
-  "description": "Original paragraph and sentence text with ordered time-aligned display units. Times are seconds from the original audio start.",
+  "description": "Script file identified by required filetype=script. Original paragraph and sentence text with ordered time-aligned display units. Times are seconds from the original audio start.",
   "type": "object",
   "additionalProperties": false,
   "required": [
+    "filetype",
     "title",
     "paragraphs"
   ],
   "properties": {
+    "filetype": {
+      "type": "string",
+      "const": "script"
+    },
     "title": {
       "type": "string"
     },

@@ -28,6 +28,7 @@ Require one source JSON and one WhisperX JSON. If the files do not fit these str
 
 ```json
 {
+  "filetype": "script",
   "title": "",
   "paragraphs": [
     [
@@ -45,7 +46,7 @@ Require one source JSON and one WhisperX JSON. If the files do not fit these str
 ```
 
 - A paragraph is a **list of sentence objects**, not an object containing `sentences`.
-- The only top-level keys are `title` and `paragraphs`; sentence keys are precisely `text`, `timed_units`.
+- The only top-level keys, in this output order, are `filetype`, `title` and `paragraphs`; `filetype` is required and exactly `"script"`, and `title` is required but may be empty; sentence keys are precisely `text`, `timed_units`.
 - Every timed unit is an ordered 3-element tuple `[original_display_text, start_seconds, end_seconds]`.
 - A timed unit is a word **or** an original-text phrase that shares one reliable time span. It is not necessarily one dictionary word.
 - `text` is byte-for-byte the JSON-decoded original sentence string, including original punctuation and spacing.
@@ -84,7 +85,7 @@ The script exits `0` for `passed`, `2` for `needs_review`, `1` for `failed`. Exi
 
 Before delivering output, check:
 
-1. Original paragraph and sentence counts match exactly; every sentence `text` matches the source exactly.
+1. `filetype` exists and equals `"script"`; `title` is a string (empty allowed); original paragraph and sentence counts match exactly; every sentence `text` matches the source exactly.
 2. Every source word is covered **exactly once**, including words merged into a unit; unit texts are forward, non-overlapping source substrings.
 3. All known timestamps are finite nonnegative numbers with `start < end`; both missing times are null. Unexpected time-order reversals are logged for review.
 4. Structural JSON passes `references/script.schema.json`; additional source-word coverage and relative-time checks are enforced by `scripts/align.py`.

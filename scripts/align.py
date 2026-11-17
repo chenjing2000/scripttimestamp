@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Align an original paragraph/sentence JSON with WhisperX word timestamps.
 
-Script JSON v1.0 output uses only title, paragraphs, text, timed_units.
+Script JSON v1.0 output has required filetype=script, title, paragraphs, text and timed_units.
 Requires Python 3.9+; the standard library is sufficient.
 """
 
@@ -437,7 +437,7 @@ def prepare_output(title: str, paragraphs: List[List[str]],
         timed_unit_count += 1
 
     issues.extend(time_warnings)
-    output = {'title': title, 'paragraphs': result}
+    output = {'filetype': 'script', 'title': title, 'paragraphs': result}
     validate_output(output, paragraphs, source)
     status = 'needs_review' if any(issue.get('requires_review') for issue in issues) else 'passed'
     report = {
@@ -463,7 +463,8 @@ def prepare_output(title: str, paragraphs: List[List[str]],
 
 def validate_output(output: Dict[str, Any], paragraphs: List[List[str]],
                     source: List[SourceToken]) -> None:
-    if set(output) != {'title', 'paragraphs'} or not isinstance(output['title'], str):
+    if (set(output) != {'filetype', 'title', 'paragraphs'} or
+        output['filetype'] != 'script' or not isinstance(output['title'], str)):
         raise ValueError('Output root fields violate Script JSON v1.0.')
     actual = output['paragraphs']
     if not isinstance(actual, list) or len(actual) != len(paragraphs):

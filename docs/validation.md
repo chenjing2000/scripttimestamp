@@ -13,8 +13,8 @@
 | 转换后同步单元 | 1,322 |
 | 原文词语覆盖率 | 100% |
 | 自动对齐报告状态 | `needs_review`（5 个待核对事件） |
-| 重新转换的确定性 | `script.json` 和 `alignment-report.json` 均与已验收版本逐字节一致 |
-| 本地自动测试 | 18/18 通过 |
+| 原版重新转换的确定性 | 在增加 `filetype` 前，`script.json` 和 `alignment-report.json` 曾与当时已验收版本逐字节一致 |
+| 原版本地自动测试 | 18/18 通过 |
 
 报告中标出的文字差异包括 `seven` / `several`、`spiegelmers` / `Spiegel-Mares`、两处人物姓名不同拼写，以及正文中 1 个额外识别的 `a`。用户认可转换结果，**不等于已经独立核听了原始音频**；自动报告仍应如实保留 `needs_review`。
 
@@ -32,3 +32,10 @@ python -m unittest discover -s tests -p 'test_*.py' -v
 - 本程序只读取两个 JSON，不直接听取音频；歧义的识别替换需要人工核听。
 - 只有 Schema 类型和结构约束可以通过 JSON Schema 检查，文本覆盖与时间前后关系由 `align.py` 校验。
 - 完整文章及语音识别数据不放入公开 GitHub 仓库。
+
+## Schema 更新：必需的 `filetype`
+
+- 正式输出根对象固定按 `filetype`, `title`, `paragraphs` 顺序写入；`filetype` 的唯一合法值为 `"script"`。
+- `title` 仍是必需字符串，允许 `""`。段落、句子、时间单元及时间戳对齐规则均未改变。
+- 新旧两个版本的 `script.json` 因新增根字段而不再逐字节相同；这是有意的契约更新，不表示原文或时间戳被修改。
+- `alignment-report.json` 的字段与含义保持不变。回归测试补充了根字段顺序和缺失/非法 `filetype` 的拒绝情况。

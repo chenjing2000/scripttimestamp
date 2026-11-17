@@ -122,8 +122,31 @@ class AlignerTests(unittest.TestCase):
         self.assertTrue((ROOT/'SKILL.md').is_file())
         self.assertTrue((ROOT/'scripts/align.py').is_file())
         schema=json.loads((ROOT/'references/script.schema.json').read_text(encoding='utf-8'))
-        self.assertEqual(set(schema['required']), {'title','paragraphs'})
+        self.assertEqual(schema['required'], ['filetype','title','paragraphs'])
+        self.assertEqual(schema['properties']['filetype']['const'], 'script')
         self.assertEqual(schema['properties']['paragraphs']['type'],'array')
+
+    def test_19_required_filetype_and_order(self):
+        out, rep = convert(source(['Hello world']), whisper(('Hello',1,1.2),('world',1.3,1.5)))
+        self.assertEqual(list(out), ['filetype','title','paragraphs'])
+        self.assertEqual(out['filetype'], 'script')
+        self.assertEqual(rep['status'], 'passed')
+
+    def test_20_missing_or_invalid_filetype_rejected(self):
+        title, paras, tokens = module.parse_source(source(['Hello']))
+        aud, notices = module.parse_audio(whisper(('Hello',1,1.5)))
+        matches, missing, extra = module.align(tokens, aud)
+        out, report = module.prepare_output(title, paras, tokens, aud, matches, missing, extra, notices)
+        self.assertEqual(report['status'],'passed')
+        for invalid in (None, 'passage', '', 5):
+            modified = dict(out)
+            if invalid is None:
+                modified.pop('filetype')
+            else:
+                modified['filetype'] = invalid
+            with self.subTest(invalid=invalid):
+                with self.assertRaises(ValueError):
+                    module.validate_output(modified, paras, tokens)
 
 if __name__=='__main__':
     unittest.main(verbosity=2)

@@ -45,6 +45,7 @@ Linux/macOS 请用 `\` 续行，或把命令写在一行。输入支持原文 `p
 
 ```json
 {
+  "filetype": "script",
   "title": "",
   "paragraphs": [
     [
@@ -64,7 +65,7 @@ Linux/macOS 请用 `\` 续行，或把命令写在一行。输入支持原文 `p
 }
 ```
 
-段落是句子数组；句子仅包含 `text` 和 `timed_units`；每个同步单元是 `[原文显示文本, start, end]` 三元数组。`sid` 只用于源数据诊断，不保存在最终 Script JSON 中。完整约束见 [`references/script.schema.json`](references/script.schema.json)。
+`filetype` 必须为 `"script"`，不能缺失或写为其他值；`title` 必须存在但允许空字符串。段落是句子数组；句子仅包含 `text` 和 `timed_units`；每个同步单元是 `[原文显示文本, start, end]` 三元数组。`sid` 只用于源数据诊断，不保存在最终 Script JSON 中。完整约束见 [`references/script.schema.json`](references/script.schema.json)。
 
 ### 退出码与异常报告
 
